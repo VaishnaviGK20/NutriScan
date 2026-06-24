@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#FF6B35">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Verify OTP — NutriScan India</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="auth-wrap">
+
+    <div class="auth-logo">
+      <div class="auth-emoji">📬</div>
+      <div class="auth-app-name">Check your email</div>
+      <div class="auth-tagline">We sent a 6-digit code to</div>
+      <div style="margin-top:6px;">
+        <span class="auth-email-highlight">{{ email }}</span>
+      </div>
+    </div>
+
+    <div class="auth-card">
+      <h1 class="auth-title">Enter your OTP</h1>
+      <p class="auth-sub">Type the 6-digit code from your email. It expires in 5 minutes.</p>
+
+      {% if error %}
+      <div class="alert alert-error">
+        <span class="alert-icon">⚠️</span>
+        <span>{{ error }}</span>
+      </div>
+      {% endif %}
+
+      <form method="POST" action="{{ url_for('verify') }}" id="otpForm">
+        <input type="hidden" name="otp" id="otp-hidden">
+        <div class="otp-row">
+          <input class="otp-box" type="text" maxlength="1"
+                 inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code">
+          <input class="otp-box" type="text" maxlength="1"
+                 inputmode="numeric" pattern="[0-9]*">
+          <input class="otp-box" type="text" maxlength="1"
+                 inputmode="numeric" pattern="[0-9]*">
+          <input class="otp-box" type="text" maxlength="1"
+                 inputmode="numeric" pattern="[0-9]*">
+          <input class="otp-box" type="text" maxlength="1"
+                 inputmode="numeric" pattern="[0-9]*">
+          <input class="otp-box" type="text" maxlength="1"
+                 inputmode="numeric" pattern="[0-9]*">
+        </div>
+        <button class="btn btn-primary" type="submit">Verify &amp; Login</button>
+      </form>
+
+      <div class="auth-resend">
+        Didn't get it?
+        <a href="{{ url_for('login') }}">Send again</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="toast-wrap" id="toastWrap"></div>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

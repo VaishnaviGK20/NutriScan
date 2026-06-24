@@ -1,0 +1,64 @@
+{% extends "auth_base.html" %}
+{% block title %}Set New Password — NutriScan India{% endblock %}
+
+{% block card %}
+<h2 class="card-title">Set New Password</h2>
+<p class="card-sub">Choose a strong password for your account</p>
+
+{% if error %}
+<div class="alert alert-err">{{ error }}</div>
+{% endif %}
+
+<form method="POST" action="{{ url_for('forgot_reset') }}" autocomplete="off">
+
+  <div class="field">
+    <label class="field-label">New Password</label>
+    <div class="inp-wrap">
+      <span class="inp-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </span>
+      <input class="field-inp" type="password" name="password" id="pwdInp"
+             placeholder="At least 8 characters"
+             autocomplete="new-password"
+             minlength="8" required autofocus
+             oninput="checkStrength(this.value)">
+      <button type="button" class="eye-btn" onclick="togglePwd('pwdInp')">Show</button>
+    </div>
+    <div class="strength-row">
+      <div class="sbar"></div><div class="sbar"></div>
+      <div class="sbar"></div><div class="sbar"></div>
+    </div>
+    <div class="strength-label" id="strengthLabel"></div>
+  </div>
+
+  <div class="field">
+    <label class="field-label">Confirm New Password</label>
+    <div class="inp-wrap">
+      <span class="inp-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </span>
+      <input class="field-inp" type="password" name="confirm" id="confirmInp"
+             placeholder="Re-enter your new password"
+             autocomplete="new-password"
+             required oninput="matchCheck()">
+      <button type="button" class="eye-btn" onclick="togglePwd('confirmInp')">Show</button>
+    </div>
+    <div class="field-hint" id="matchHint"></div>
+  </div>
+
+  <button class="btn-primary" type="submit">Save New Password</button>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function matchCheck() {
+  const pwd  = document.getElementById('pwdInp').value;
+  const conf = document.getElementById('confirmInp').value;
+  const hint = document.getElementById('matchHint');
+  if (!conf) { hint.textContent = ''; return; }
+  if (pwd === conf) { hint.textContent = 'Passwords match'; hint.style.color = '#22c55e'; }
+  else              { hint.textContent = 'Passwords do not match'; hint.style.color = '#dc2626'; }
+}
+</script>
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}Profile — NutriScan India{% endblock %}
+
+{% block content %}
+
+<!-- PROFILE HEADER -->
+<div class="card" style="text-align:center;padding:24px 16px">
+  <div class="profile-av">
+    {{ (user.name or user.email or 'U')[0].upper() }}
+  </div>
+  <div class="profile-name">{{ user.name or 'Set your name below' }}</div>
+  <div class="profile-email">{{ user.email }}</div>
+  {% if user.username %}
+  <div style="margin-top:6px;font-size:13px;color:var(--saffron);font-weight:600">
+    @{{ user.username }}
+  </div>
+  {% endif %}
+  <div style="margin-top:10px;font-size:12px;color:var(--muted)">
+    Member since {{ user.created_at[:10] if user.created_at else 'today' }}
+  </div>
+</div>
+
+<!-- SETTINGS -->
+<div class="card">
+  <div class="card-title">Settings</div>
+
+  <form method="POST" action="{{ url_for('profile') }}">
+    <div class="input-group">
+      <label class="input-label" for="name">Display Name</label>
+      <input class="input-field" type="text" id="name" name="name"
+             value="{{ user.name or '' }}"
+             placeholder="Enter your name"
+             autocomplete="name" maxlength="60">
+    </div>
+
+    <div class="input-group">
+      <label class="input-label" for="daily_calorie_goal">Daily Calorie Goal (kcal)</label>
+      <input class="input-field" type="number" id="daily_calorie_goal"
+             name="daily_calorie_goal"
+             value="{{ user.daily_calorie_goal or 2000 }}"
+             min="500" max="6000" step="50">
+      <div style="margin-top:6px;font-size:12px;color:var(--muted)">
+        Typical adult: 1500–2500 kcal &nbsp;|&nbsp; Athletes: 2500–4000 kcal
+      </div>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Save Changes</button>
+  </form>
+</div>
+
+<!-- NUTRITION REFERENCE -->
+<div class="card">
+  <div class="card-title">Daily Reference Values</div>
+  <table style="width:100%;font-size:13px;color:var(--muted);border-collapse:collapse">
+    <tr style="border-bottom:1px solid var(--border)">
+      <td style="padding:9px 0;font-weight:600;color:var(--text)">Calories</td>
+      <td style="padding:9px 0;text-align:right">2000 kcal</td>
+    </tr>
+    <tr style="border-bottom:1px solid var(--border)">
+      <td style="padding:9px 0;font-weight:600;color:var(--text)">Protein</td>
+      <td style="padding:9px 0;text-align:right">50 g</td>
+    </tr>
+    <tr style="border-bottom:1px solid var(--border)">
+      <td style="padding:9px 0;font-weight:600;color:var(--text)">Fat</td>
+      <td style="padding:9px 0;text-align:right">65 g</td>
+    </tr>
+    <tr style="border-bottom:1px solid var(--border)">
+      <td style="padding:9px 0;font-weight:600;color:var(--text)">Carbohydrates</td>
+      <td style="padding:9px 0;text-align:right">300 g</td>
+    </tr>
+    <tr>
+      <td style="padding:9px 0;font-weight:600;color:var(--text)">Fiber</td>
+      <td style="padding:9px 0;text-align:right">25–30 g</td>
+    </tr>
+  </table>
+</div>
+
+<!-- LOGOUT -->
+<div class="card" style="text-align:center">
+  <a href="{{ url_for('logout') }}" class="btn btn-secondary"
+     style="color:var(--danger);border-color:var(--danger);display:inline-flex;
+            width:auto;padding:12px 32px"
+     onclick="return confirm('Log out of NutriScan?')">
+    Log Out
+  </a>
+</div>
+
+{% endblock %}

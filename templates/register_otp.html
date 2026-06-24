@@ -1,0 +1,44 @@
+{% extends "auth_base.html" %}
+{% block title %}Verify Email — NutriScan India{% endblock %}
+
+{% block card %}
+<div class="steps">
+  <div class="dot done"></div><div class="dot active"></div><div class="dot"></div>
+</div>
+
+<h2 class="card-title">Verify Email</h2>
+<p class="card-sub">Step 2 of 3 — Enter the code we sent</p>
+
+<div class="email-box">
+  Code sent to <strong>{{ email }}</strong>
+</div>
+
+{% if error %}
+<div class="alert alert-err">{{ error }}</div>
+{% endif %}
+
+<form method="POST" action="{{ url_for('register_otp') }}">
+  <input type="hidden" name="otp" id="otp-hidden">
+
+  <div class="otp-grid">
+    <input class="otp-inp" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code">
+    <input class="otp-inp" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+    <input class="otp-inp" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+    <input class="otp-inp" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+    <input class="otp-inp" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+    <input class="otp-inp" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+  </div>
+
+  <div class="timer" id="timerText"
+       data-seconds="300"
+       data-resend="{{ url_for('register') }}">
+    Code expires in <b>05:00</b>
+  </div>
+
+  <button class="btn-primary" type="submit">Verify</button>
+</form>
+
+<div class="card-footer">
+  <a href="{{ url_for('register') }}">Change email</a>
+</div>
+{% endblock %}

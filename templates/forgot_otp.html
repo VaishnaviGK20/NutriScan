@@ -1,0 +1,40 @@
+{% extends "auth_base.html" %}
+{% block title %}Reset Code — NutriScan India{% endblock %}
+
+{% block card %}
+<h2 class="card-title">Enter Reset Code</h2>
+<p class="card-sub">Check your inbox for the 6-digit code</p>
+
+<div class="email-box">
+  Code sent to <strong>{{ email }}</strong>
+</div>
+
+{% if error %}
+<div class="alert alert-err">{{ error }}</div>
+{% endif %}
+
+<form method="POST" action="{{ url_for('forgot_otp') }}">
+  <input type="hidden" name="otp" id="otp-hidden">
+
+  <div class="otp-grid">
+    <input class="otp-inp" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code">
+    <input class="otp-inp" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+    <input class="otp-inp" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+    <input class="otp-inp" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+    <input class="otp-inp" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+    <input class="otp-inp" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+  </div>
+
+  <div class="timer" id="timerText"
+       data-seconds="300"
+       data-resend="{{ url_for('forgot') }}">
+    Code expires in <b>05:00</b>
+  </div>
+
+  <button class="btn-primary" type="submit">Verify</button>
+</form>
+
+<div class="card-footer">
+  <a href="{{ url_for('forgot') }}">Resend code</a>
+</div>
+{% endblock %}

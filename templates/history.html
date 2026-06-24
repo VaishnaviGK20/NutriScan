@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}History — NutriScan India{% endblock %}
+
+{% block content %}
+
+{% set goal = user.daily_calorie_goal or 2000 %}
+{% set avg_cal = (history_data | sum(attribute='calories') / history_data | length) | round(0) | int
+                 if history_data else 0 %}
+{% set days_logged = history_data | length %}
+
+<!-- STATS -->
+<div class="card">
+  <div class="card-title">Last 14 Days</div>
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-val">{{ avg_cal }}</div>
+      <div class="stat-label">Avg kcal / day</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-val">{{ days_logged }}</div>
+      <div class="stat-label">Days logged</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-val">{{ goal }}</div>
+      <div class="stat-label">Daily goal</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-val"
+           style="font-size:14px;color:{% if avg_cal <= goal %}var(--green){% else %}var(--danger){% endif %}">
+        {% if avg_cal <= goal %}On track{% else %}Over goal{% endif %}
+      </div>
+      <div class="stat-label">Goal status</div>
+    </div>
+  </div>
+</div>
+
+<!-- BAR CHART -->
+<div class="card">
+  <div class="card-title">Calorie Chart</div>
+
+  {% if history_data %}
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;
+              font-size:12px;color:var(--muted)">
+    <div style="width:22px;height:2px;background:var(--danger);
+                border-style:dashed;border-width:1px 0 0 0"></div>
+    <span>Daily goal: {{ goal }} kcal</span>
+  </div>
+
+  <div class="history-bars" id="historyBars">
+    {% set today_str = now_date %}
+    {% for row in history_data %}
+    <div class="hbar-col">
+      <div class="hbar-cal">{{ row.calories | round(0) | int }}</div>
+      <div class="hbar-fill {% if row.date == today_str %}today{% endif %}"
+           data-val="{{ row.calories }}"
+           style="height:0%"
+           title="{{ row.date }}: {{ row.calories | round(0) | int }} kcal"></div>
+      <div class="hbar-day">{{ row.date[-5:] }}</div>
+    </div>
+    {% endfor %}
+  </div>
+
+  {% else %}
+  <div class="empty">
+    <div class="empty-text">No history yet</div>
+    <div class="empty-sub">Start logging meals to see your trend</div>
+  </div>
+  {% endif %}
+</div>
+
+<!-- PER-DAY BREAKDOWN -->
+{% if history_data %}
+<div class="card">
+  <div class="card-title">Daily Breakdown</div>
+
+  {% for row in history_data | reverse %}
+  <div style="padding:12px 0;border-bottom:1px solid var(--border)">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <span style="font-size:14px;font-weight:700">{{ row.date }}</span>
+      <span style="font-size:14px;font-weight:800;
+                   color:{% if row.calories > goal %}var(--danger){% else %}var(--saffron){% endif %}">
+        {{ row.calories | round(0) | int }} kcal
+      </span>
+    </div>
+    <div style="display:flex;gap:14px;font-size:12px;color:var(--muted)">
+      <span>Protein: {{ row.protein }}g</span>
+      <span>Fat: {{ row.fat }}g</span>
+      <span>Carbs: {{ row.carbs }}g</span>
+      {% if row.fiber %}<span>Fiber: {{ row.fiber }}g</span>{% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const today = new Date().toISOString().slice(0, 10);
+    document.querySelectorAll('.hbar-fill').forEach(b => {
+      const title = b.getAttribute('title') || '';
+      if (title.startsWith(today)) b.classList.add('today');
+    });
+  });
+</script>
+{% endblock %}

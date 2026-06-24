@@ -1,0 +1,86 @@
+{% extends "auth_base.html" %}
+{% block title %}Set Username & Password — NutriScan India{% endblock %}
+
+{% block card %}
+<div class="steps">
+  <div class="dot done"></div><div class="dot done"></div><div class="dot active"></div>
+</div>
+
+<h2 class="card-title">Almost done</h2>
+<p class="card-sub">Step 3 of 3 — Choose your username and password</p>
+
+{% if error %}
+<div class="alert alert-err">{{ error }}</div>
+{% endif %}
+
+<form method="POST" action="{{ url_for('register_setup') }}" autocomplete="off">
+
+  <div class="field">
+    <label class="field-label">Username</label>
+    <div class="inp-wrap">
+      <span class="inp-icon">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </span>
+      <input class="field-inp" type="text" name="username"
+             id="usernameInp"
+             placeholder="e.g. vaishnavi_gk"
+             value="{{ username_val or '' }}"
+             autocomplete="off"
+             maxlength="20" required autofocus
+             oninput="validateUsername(this.value)">
+      <span class="username-badge" id="unameBadge"></span>
+    </div>
+    <div class="field-hint">3–20 characters · letters, numbers and underscores only</div>
+  </div>
+
+  <div class="field">
+    <label class="field-label">Password</label>
+    <div class="inp-wrap">
+      <span class="inp-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </span>
+      <input class="field-inp" type="password" name="password" id="pwdInp"
+             placeholder="At least 8 characters"
+             autocomplete="new-password"
+             minlength="8" required
+             oninput="checkStrength(this.value)">
+      <button type="button" class="eye-btn" onclick="togglePwd('pwdInp')">Show</button>
+    </div>
+    <div class="strength-row">
+      <div class="sbar"></div><div class="sbar"></div>
+      <div class="sbar"></div><div class="sbar"></div>
+    </div>
+    <div class="strength-label" id="strengthLabel"></div>
+  </div>
+
+  <div class="field">
+    <label class="field-label">Confirm Password</label>
+    <div class="inp-wrap">
+      <span class="inp-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </span>
+      <input class="field-inp" type="password" name="confirm" id="confirmInp"
+             placeholder="Re-enter your password"
+             autocomplete="new-password"
+             required oninput="matchCheck()">
+      <button type="button" class="eye-btn" onclick="togglePwd('confirmInp')">Show</button>
+    </div>
+    <div class="field-hint" id="matchHint"></div>
+  </div>
+
+  <button class="btn-primary" type="submit">Create Account</button>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function matchCheck() {
+  const pwd  = document.getElementById('pwdInp').value;
+  const conf = document.getElementById('confirmInp').value;
+  const hint = document.getElementById('matchHint');
+  if (!conf) { hint.textContent = ''; return; }
+  if (pwd === conf) { hint.textContent = 'Passwords match'; hint.style.color = '#22c55e'; }
+  else              { hint.textContent = 'Passwords do not match'; hint.style.color = '#dc2626'; }
+}
+</script>
+{% endblock %}

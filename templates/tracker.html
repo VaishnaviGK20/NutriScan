@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+{% block title %}Today's Log — NutriScan India{% endblock %}
+
+{% block content %}
+
+{% set goal = user.daily_calorie_goal or 2000 %}
+{% set consumed = total.calories %}
+{% set remaining = [goal - consumed, 0] | max %}
+{% set pct = [(consumed / goal * 100), 100] | min if goal else 0 %}
+
+<!-- CALORIE PROGRESS -->
+<div class="card">
+  <div class="card-title">Today's Progress</div>
+
+  <div class="ring-wrap">
+    <div class="ring-svg-wrap">
+      <svg class="ring-svg" width="160" height="160" viewBox="0 0 160 160"
+           id="calorieRing"
+           data-consumed="{{ consumed }}"
+           data-goal="{{ goal }}">
+        <circle cx="80" cy="80" r="64"
+                fill="none" stroke="var(--border)" stroke-width="14"
+                stroke-linecap="round"/>
+        <circle class="ring-progress" cx="80" cy="80" r="64"
+                fill="none" stroke="#FF6B35" stroke-width="14"
+                stroke-linecap="round"
+                style="stroke-dasharray:{{ 2 * 3.14159 * 64 }};
+                       stroke-dashoffset:{{ 2 * 3.14159 * 64 }};
+                       transition:stroke-dashoffset .7s ease"/>
+      </svg>
+      <div class="ring-center">
+        <span class="ring-kcal">{{ consumed | int }}</span>
+        <span class="ring-label">of {{ goal }} kcal</span>
+        <span style="font-size:11px;color:{% if consumed > goal %}var(--danger){% else %}var(--green-light){% endif %};
+                     font-weight:700;margin-top:3px">
+          {% if consumed > goal %}
+            +{{ (consumed - goal) | int }} over
+          {% else %}
+            {{ remaining | int }} left
+          {% endif %}
+        </span>
+      </div>
+    </div>
+
+    <div class="ring-stats">
+      <div class="ring-stat-row">
+        <div class="ring-dot" style="background:#1565C0"></div>
+        <span class="ring-stat-label">Protein</span>
+        <span class="ring-stat-val">{{ total.protein }}g</span>
+      </div>
+      <div class="ring-stat-row">
+        <div class="ring-dot" style="background:#E65100"></div>
+        <span class="ring-stat-label">Fat</span>
+        <span class="ring-stat-val">{{ total.fat }}g</span>
+      </div>
+      <div class="ring-stat-row">
+        <div class="ring-dot" style="background:#2E7D32"></div>
+        <span class="ring-stat-label">Carbs</span>
+        <span class="ring-stat-val">{{ total.carbs }}g</span>
+      </div>
+      <div class="ring-stat-row">
+        <div class="ring-dot" style="background:#6A1B9A"></div>
+        <span class="ring-stat-label">Fiber</span>
+        <span class="ring-stat-val">{{ total.fiber }}g</span>
+      </div>
+    </div>
+  </div>
+
+  {% set p_pct  = [(total.protein / 50  * 100), 100] | min %}
+  {% set f_pct  = [(total.fat    / 65  * 100), 100] | min %}
+  {% set c_pct  = [(total.carbs  / 300 * 100), 100] | min %}
+  {% set fb_pct = [(total.fiber  / 30  * 100), 100] | min %}
+
+  <div style="margin-top:6px">
+    <div class="macro-row">
+      <span class="macro-name">Protein</span>
+      <div class="macro-track"><div class="macro-fill prot" data-pct="{{ p_pct }}" style="width:0"></div></div>
+      <span class="macro-val">{{ total.protein }}g</span>
+    </div>
+    <div class="macro-row">
+      <span class="macro-name">Fat</span>
+      <div class="macro-track"><div class="macro-fill fat" data-pct="{{ f_pct }}" style="width:0"></div></div>
+      <span class="macro-val">{{ total.fat }}g</span>
+    </div>
+    <div class="macro-row">
+      <span class="macro-name">Carbs</span>
+      <div class="macro-track"><div class="macro-fill carb" data-pct="{{ c_pct }}" style="width:0"></div></div>
+      <span class="macro-val">{{ total.carbs }}g</span>
+    </div>
+    <div class="macro-row" style="margin-bottom:0">
+      <span class="macro-name">Fiber</span>
+      <div class="macro-track"><div class="macro-fill fib" data-pct="{{ fb_pct }}" style="width:0"></div></div>
+      <span class="macro-val">{{ total.fiber }}g</span>
+    </div>
+  </div>
+</div>
+
+<!-- QUICK ADD -->
+<div class="card">
+  <div class="section-header">
+    <span class="card-title" style="margin-bottom:0">Quick Add Food</span>
+    <a href="{{ url_for('scan') }}" class="section-link">Scan</a>
+  </div>
+
+  <div style="display:flex;gap:8px;margin-bottom:10px">
+    <select class="input-field" id="mealSelectSearch" style="flex:1;width:auto">
+      <option value="breakfast">Breakfast</option>
+      <option value="lunch">Lunch</option>
+      <option value="dinner">Dinner</option>
+      <option value="snack" selected>Snack</option>
+    </select>
+    <input class="input-field" type="number" id="qtySearch"
+           value="1" min="0.1" max="20" step="0.5"
+           style="width:70px" title="Qty (servings)">
+  </div>
+
+  <div class="search-wrap">
+    <input class="input-field" type="search" id="foodSearch"
+           placeholder="Search food — e.g. dal, idli, chai"
+           autocomplete="off">
+    <div class="search-results" id="searchResults" style="display:none"></div>
+  </div>
+</div>
+
+<!-- FOOD LOG -->
+<div class="card">
+  <div class="card-title">Food Log — {{ today }}</div>
+
+  {% if not logs %}
+  <div class="empty">
+    <div class="empty-text">No meals logged yet</div>
+    <div class="empty-sub">Scan food or search above to start tracking</div>
+  </div>
+  {% else %}
+
+  {% set meal_labels = {
+    'breakfast': 'Breakfast', 'lunch': 'Lunch', 'dinner': 'Dinner', 'snack': 'Snack'
+  } %}
+  {% set meal_abbr = {
+    'breakfast': 'BF', 'lunch': 'L', 'dinner': 'D', 'snack': 'SN'
+  } %}
+
+  {% for meal_type, items in meal_groups.items() %}
+  <div class="meal-header">
+    <span class="meal-badge">{{ meal_labels.get(meal_type, meal_type | title) }}</span>
+    <span class="meal-kcal">{{ items | sum(attribute='calories') | round(0) | int }} kcal</span>
+  </div>
+
+  {% for log in items %}
+  <div class="log-item">
+    <div class="log-icon">{{ meal_abbr.get(meal_type, 'SN') }}</div>
+    <div class="log-info">
+      <div class="log-name">{{ log.food_name }}</div>
+      <div class="log-meta">
+        P:{{ log.protein }}g &bull; F:{{ log.fat }}g &bull;
+        C:{{ log.carbs }}g &bull; Fiber:{{ log.fiber }}g
+        {% if log.quantity != 1 %}&bull; x{{ log.quantity }}{% endif %}
+      </div>
+    </div>
+    <span class="log-cal">{{ log.calories | round(0) | int }} kcal</span>
+    <button class="del-log-btn btn-danger" data-id="{{ log.id }}" title="Remove">x</button>
+  </div>
+  {% endfor %}
+  {% endfor %}
+
+  {% endif %}
+</div>
+
+{% endblock %}

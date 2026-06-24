@@ -1,0 +1,53 @@
+{% extends "auth_base.html" %}
+{% block title %}Create Account — NutriScan India{% endblock %}
+
+{% block card %}
+<div class="steps">
+  <div class="dot active"></div><div class="dot"></div><div class="dot"></div>
+</div>
+
+<h2 class="card-title">Create Account</h2>
+<p class="card-sub">Step 1 of 3 — Your details</p>
+
+{% if error %}
+<div class="alert alert-err">{{ error }}</div>
+{% endif %}
+
+<form method="POST" action="{{ url_for('register') }}" autocomplete="on">
+
+  <div class="field">
+    <label class="field-label">Full Name</label>
+    <div class="inp-wrap">
+      <span class="inp-icon">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </span>
+      <input class="field-inp" type="text" name="name"
+             placeholder="Your full name"
+             autocomplete="name"
+             value="{{ request.form.get('name','') }}"
+             required autofocus maxlength="60">
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="field-label">Email Address</label>
+    <div class="inp-wrap">
+      <span class="inp-icon">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </span>
+      <input class="field-inp" type="email" name="email"
+             placeholder="yourname@gmail.com"
+             autocomplete="email" inputmode="email"
+             value="{{ request.form.get('email','') }}"
+             required>
+    </div>
+    <div class="field-hint">We will send a verification code to this email</div>
+  </div>
+
+  <button class="btn-primary" type="submit">Send Verification Code</button>
+</form>
+
+<div class="card-footer">
+  Already have an account? <a href="{{ url_for('login') }}">Sign In</a>
+</div>
+{% endblock %}

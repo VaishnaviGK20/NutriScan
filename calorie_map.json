@@ -1,0 +1,364 @@
+{
+  "idli": {
+    "base": {"calories": 58, "protein": 1.6, "fat": 0.4, "carbs": 12, "fiber": 0.4},
+    "variants": {
+      "rava":    {"calories": 65, "protein": 1.8, "fat": 0.6, "carbs": 13, "fiber": 0.3},
+      "rice":    {"calories": 58, "protein": 1.6, "fat": 0.4, "carbs": 12, "fiber": 0.4},
+      "stuffed": {"calories": 80, "protein": 2.5, "fat": 1.2, "carbs": 15, "fiber": 0.6},
+      "fried":   {"calories": 75, "protein": 2.2, "fat": 2.5, "carbs": 13, "fiber": 0.4}
+    }
+  },
+  "poha": {
+    "base": {"calories": 180, "protein": 3, "fat": 5, "carbs": 30, "fiber": 1.5},
+    "variants": {
+      "kanda":    {"calories": 180, "protein": 3, "fat": 5, "carbs": 30, "fiber": 1.5},
+      "batata":   {"calories": 200, "protein": 3.2, "fat": 6, "carbs": 32, "fiber": 1.8},
+      "less_oil": {"calories": 160, "protein": 2.5, "fat": 3, "carbs": 28, "fiber": 1.5},
+      "more_oil": {"calories": 210, "protein": 3.3, "fat": 8, "carbs": 32, "fiber": 1.5}
+    }
+  },
+  "samosa": {
+    "base": {"calories": 260, "protein": 3, "fat": 17, "carbs": 25, "fiber": 2},
+    "variants": {
+      "potato":   {"calories": 260, "protein": 3,   "fat": 17, "carbs": 25, "fiber": 2},
+      "onion":    {"calories": 240, "protein": 2.5, "fat": 15, "carbs": 24, "fiber": 1.5},
+      "paneer":   {"calories": 280, "protein": 5,   "fat": 18, "carbs": 24, "fiber": 1.5},
+      "cheese":   {"calories": 300, "protein": 6,   "fat": 20, "carbs": 25, "fiber": 1},
+      "air_fried":{"calories": 200, "protein": 3,   "fat": 8,  "carbs": 26, "fiber": 2},
+      "baked":    {"calories": 190, "protein": 3.5, "fat": 8,  "carbs": 26, "fiber": 2},
+      "deep_fried":{"calories": 280,"protein": 3,   "fat": 20, "carbs": 25, "fiber": 2}
+    }
+  },
+  "palak_paneer": {
+    "base": {"calories": 240, "protein": 8, "fat": 18, "carbs": 10, "fiber": 2.5},
+    "variants": {
+      "with_cream":       {"calories": 270, "protein": 8.5, "fat": 20, "carbs": 11, "fiber": 2.5},
+      "less_cream":       {"calories": 220, "protein": 7.5, "fat": 15, "carbs": 9,  "fiber": 2.5},
+      "no_cream":         {"calories": 200, "protein": 7,   "fat": 12, "carbs": 9,  "fiber": 2.5},
+      "restaurant_style": {"calories": 280, "protein": 9,   "fat": 22, "carbs": 12, "fiber": 2.5},
+      "homemade":         {"calories": 220, "protein": 7.5, "fat": 15, "carbs": 9,  "fiber": 2.5}
+    }
+  },
+  "besan_cheela": {
+    "base": {"calories": 200, "protein": 7, "fat": 9, "carbs": 18, "fiber": 3},
+    "variants": {
+      "with_veggies": {"calories": 180, "protein": 6.5, "fat": 8,  "carbs": 16, "fiber": 3.5},
+      "cheese":       {"calories": 230, "protein": 8,   "fat": 11, "carbs": 18, "fiber": 3},
+      "air_fried":    {"calories": 170, "protein": 6.5, "fat": 6,  "carbs": 17, "fiber": 3},
+      "with_ghee":    {"calories": 220, "protein": 7,   "fat": 12, "carbs": 18, "fiber": 3}
+    }
+  },
+  "dosa": {
+    "base": {"calories": 133, "protein": 2.5, "fat": 4, "carbs": 21, "fiber": 0.8},
+    "variants": {
+      "plain":      {"calories": 133, "protein": 2.5, "fat": 4,   "carbs": 21, "fiber": 0.8},
+      "butter":     {"calories": 160, "protein": 2.7, "fat": 7,   "carbs": 21, "fiber": 0.8},
+      "ghee":       {"calories": 155, "protein": 2.6, "fat": 6.5, "carbs": 21, "fiber": 0.8},
+      "pudi":       {"calories": 170, "protein": 2.7, "fat": 7.5, "carbs": 22, "fiber": 1},
+      "masala":     {"calories": 190, "protein": 3.5, "fat": 8,   "carbs": 25, "fiber": 2},
+      "set":        {"calories": 180, "protein": 3.2, "fat": 7,   "carbs": 23, "fiber": 1},
+      "onion":      {"calories": 160, "protein": 2.8, "fat": 5.5, "carbs": 22, "fiber": 1.2},
+      "cheese":     {"calories": 210, "protein": 5,   "fat": 9,   "carbs": 23, "fiber": 0.8},
+      "rava":       {"calories": 165, "protein": 3,   "fat": 6,   "carbs": 22, "fiber": 0.8},
+      "restaurant": {"calories": 200, "protein": 3.5, "fat": 8.5, "carbs": 25, "fiber": 1}
+    }
+  },
+  "gulab_jamun": {
+    "base": {"calories": 150, "protein": 2, "fat": 5, "carbs": 28, "fiber": 0.2},
+    "variants": {
+      "sugarless":        {"calories": 100, "protein": 1.5, "fat": 4,   "carbs": 18, "fiber": 0.2},
+      "with_sugar_syrup": {"calories": 180, "protein": 2.5, "fat": 6,   "carbs": 35, "fiber": 0.2},
+      "homemade":         {"calories": 135, "protein": 2,   "fat": 4.5, "carbs": 25, "fiber": 0.2},
+      "with_khoa":        {"calories": 170, "protein": 3,   "fat": 6,   "carbs": 30, "fiber": 0.2},
+      "stuffed":          {"calories": 190, "protein": 3.5, "fat": 7,   "carbs": 32, "fiber": 0.3}
+    }
+  },
+  "roti": {
+    "base": {"calories": 104, "protein": 3.1, "fat": 0.9, "carbs": 22, "fiber": 2.5},
+    "variants": {
+      "wheat":   {"calories": 104, "protein": 3.1, "fat": 0.9, "carbs": 22, "fiber": 2.5},
+      "with_ghee":{"calories": 135,"protein": 3.1, "fat": 4,   "carbs": 22, "fiber": 2.5},
+      "jowar":   {"calories": 95,  "protein": 3,   "fat": 0.8, "carbs": 20, "fiber": 3.5},
+      "bajra":   {"calories": 100, "protein": 3.2, "fat": 1.2, "carbs": 21, "fiber": 3.8}
+    }
+  },
+  "paratha": {
+    "base": {"calories": 259, "protein": 4.5, "fat": 11, "carbs": 36, "fiber": 2.5},
+    "variants": {
+      "plain":       {"calories": 259, "protein": 4.5, "fat": 11, "carbs": 36, "fiber": 2.5},
+      "aloo":        {"calories": 300, "protein": 5,   "fat": 12, "carbs": 44, "fiber": 3},
+      "paneer":      {"calories": 330, "protein": 9,   "fat": 15, "carbs": 38, "fiber": 2},
+      "mooli":       {"calories": 240, "protein": 4.5, "fat": 10, "carbs": 34, "fiber": 4},
+      "onion":       {"calories": 270, "protein": 4.8, "fat": 11, "carbs": 38, "fiber": 3},
+      "with_butter": {"calories": 340, "protein": 4.5, "fat": 18, "carbs": 36, "fiber": 2.5}
+    }
+  },
+  "aloo_paratha": {
+    "base": {"calories": 300, "protein": 5, "fat": 12, "carbs": 44, "fiber": 3}
+  },
+  "dal_tadka": {
+    "base": {"calories": 150, "protein": 8, "fat": 6, "carbs": 18, "fiber": 4},
+    "variants": {
+      "with_ghee":    {"calories": 175, "protein": 8, "fat": 9,  "carbs": 18, "fiber": 4},
+      "restaurant":   {"calories": 180, "protein": 8, "fat": 10, "carbs": 18, "fiber": 4},
+      "homemade":     {"calories": 140, "protein": 8, "fat": 5,  "carbs": 18, "fiber": 4}
+    }
+  },
+  "dal_makhani": {
+    "base": {"calories": 200, "protein": 9, "fat": 10, "carbs": 22, "fiber": 5},
+    "variants": {
+      "restaurant": {"calories": 250, "protein": 9, "fat": 14, "carbs": 24, "fiber": 5},
+      "homemade":   {"calories": 185, "protein": 9, "fat": 8,  "carbs": 22, "fiber": 5}
+    }
+  },
+  "rajma": {
+    "base": {"calories": 180, "protein": 9, "fat": 5, "carbs": 28, "fiber": 7.5}
+  },
+  "chole": {
+    "base": {"calories": 195, "protein": 9, "fat": 7, "carbs": 27, "fiber": 8},
+    "variants": {
+      "restaurant": {"calories": 230, "protein": 9, "fat": 10, "carbs": 28, "fiber": 8},
+      "homemade":   {"calories": 180, "protein": 9, "fat": 5,  "carbs": 27, "fiber": 8}
+    }
+  },
+  "paneer_butter_masala": {
+    "base": {"calories": 290, "protein": 10, "fat": 20, "carbs": 18, "fiber": 2},
+    "variants": {
+      "restaurant": {"calories": 340, "protein": 11, "fat": 24, "carbs": 20, "fiber": 2},
+      "homemade":   {"calories": 260, "protein": 10, "fat": 17, "carbs": 17, "fiber": 2}
+    }
+  },
+  "butter_chicken": {
+    "base": {"calories": 280, "protein": 20, "fat": 18, "carbs": 12, "fiber": 1.5},
+    "variants": {
+      "restaurant": {"calories": 330, "protein": 22, "fat": 22, "carbs": 14, "fiber": 1.5},
+      "homemade":   {"calories": 250, "protein": 20, "fat": 15, "carbs": 11, "fiber": 1.5}
+    }
+  },
+  "chicken_biryani": {
+    "base": {"calories": 370, "protein": 20, "fat": 14, "carbs": 45, "fiber": 2},
+    "variants": {
+      "restaurant": {"calories": 430, "protein": 22, "fat": 17, "carbs": 50, "fiber": 2},
+      "homemade":   {"calories": 340, "protein": 20, "fat": 11, "carbs": 44, "fiber": 2}
+    }
+  },
+  "veg_biryani": {
+    "base": {"calories": 310, "protein": 7, "fat": 10, "carbs": 50, "fiber": 3},
+    "variants": {
+      "restaurant": {"calories": 360, "protein": 8, "fat": 13, "carbs": 55, "fiber": 3},
+      "homemade":   {"calories": 280, "protein": 7, "fat": 8,  "carbs": 48, "fiber": 3}
+    }
+  },
+  "pulao": {
+    "base": {"calories": 270, "protein": 5, "fat": 8, "carbs": 44, "fiber": 2},
+    "variants": {
+      "veg":     {"calories": 270, "protein": 5, "fat": 8,  "carbs": 44, "fiber": 2},
+      "matar":   {"calories": 290, "protein": 7, "fat": 9,  "carbs": 46, "fiber": 3.5},
+      "paneer":  {"calories": 330, "protein": 9, "fat": 13, "carbs": 45, "fiber": 2}
+    }
+  },
+  "plain_rice": {
+    "base": {"calories": 205, "protein": 4.2, "fat": 0.4, "carbs": 45, "fiber": 0.6}
+  },
+  "jeera_rice": {
+    "base": {"calories": 230, "protein": 4.2, "fat": 4, "carbs": 45, "fiber": 0.8}
+  },
+  "khichdi": {
+    "base": {"calories": 220, "protein": 8, "fat": 5, "carbs": 38, "fiber": 3},
+    "variants": {
+      "with_ghee": {"calories": 265, "protein": 8, "fat": 9,  "carbs": 38, "fiber": 3},
+      "plain":     {"calories": 200, "protein": 8, "fat": 3,  "carbs": 37, "fiber": 3}
+    }
+  },
+  "aloo_gobi": {
+    "base": {"calories": 165, "protein": 4, "fat": 8, "carbs": 22, "fiber": 4}
+  },
+  "matar_paneer": {
+    "base": {"calories": 230, "protein": 9, "fat": 14, "carbs": 18, "fiber": 3.5}
+  },
+  "shahi_paneer": {
+    "base": {"calories": 310, "protein": 10, "fat": 23, "carbs": 16, "fiber": 1.5}
+  },
+  "kadai_paneer": {
+    "base": {"calories": 275, "protein": 10, "fat": 19, "carbs": 14, "fiber": 2.5}
+  },
+  "medu_vada": {
+    "base": {"calories": 190, "protein": 5, "fat": 10, "carbs": 22, "fiber": 2.5},
+    "variants": {
+      "with_sambar": {"calories": 225, "protein": 7, "fat": 10, "carbs": 28, "fiber": 3.5}
+    }
+  },
+  "uttapam": {
+    "base": {"calories": 175, "protein": 5, "fat": 5, "carbs": 28, "fiber": 1.5},
+    "variants": {
+      "onion":  {"calories": 180, "protein": 5, "fat": 6, "carbs": 29, "fiber": 2},
+      "tomato": {"calories": 178, "protein": 5, "fat": 5, "carbs": 29, "fiber": 2},
+      "mixed":  {"calories": 185, "protein": 6, "fat": 6, "carbs": 30, "fiber": 2.5}
+    }
+  },
+  "upma": {
+    "base": {"calories": 195, "protein": 4.5, "fat": 7, "carbs": 30, "fiber": 2},
+    "variants": {
+      "rava":       {"calories": 195, "protein": 4.5, "fat": 7,  "carbs": 30, "fiber": 2},
+      "vermicelli": {"calories": 210, "protein": 4,   "fat": 7,  "carbs": 34, "fiber": 1.5},
+      "oats":       {"calories": 180, "protein": 5.5, "fat": 6,  "carbs": 28, "fiber": 3.5}
+    }
+  },
+  "pav_bhaji": {
+    "base": {"calories": 400, "protein": 9, "fat": 15, "carbs": 60, "fiber": 5},
+    "variants": {
+      "restaurant": {"calories": 480, "protein": 10, "fat": 20, "carbs": 65, "fiber": 5},
+      "homemade":   {"calories": 360, "protein": 9,  "fat": 11, "carbs": 58, "fiber": 5}
+    }
+  },
+  "vada_pav": {
+    "base": {"calories": 290, "protein": 6, "fat": 12, "carbs": 40, "fiber": 2.5}
+  },
+  "bhel_puri": {
+    "base": {"calories": 215, "protein": 5, "fat": 7, "carbs": 35, "fiber": 3}
+  },
+  "pani_puri": {
+    "base": {"calories": 30, "protein": 0.8, "fat": 0.8, "carbs": 5, "fiber": 0.3}
+  },
+  "aloo_tikki": {
+    "base": {"calories": 200, "protein": 3.5, "fat": 8, "carbs": 30, "fiber": 2.5},
+    "variants": {
+      "with_chutney": {"calories": 230, "protein": 4, "fat": 8, "carbs": 37, "fiber": 3},
+      "with_chole":   {"calories": 290, "protein": 9, "fat": 10, "carbs": 44, "fiber": 6}
+    }
+  },
+  "chole_bhature": {
+    "base": {"calories": 580, "protein": 15, "fat": 22, "carbs": 82, "fiber": 9},
+    "variants": {
+      "restaurant": {"calories": 650, "protein": 16, "fat": 26, "carbs": 88, "fiber": 9}
+    }
+  },
+  "kachori": {
+    "base": {"calories": 240, "protein": 5, "fat": 12, "carbs": 30, "fiber": 3}
+  },
+  "dhokla": {
+    "base": {"calories": 160, "protein": 6, "fat": 5, "carbs": 25, "fiber": 2},
+    "variants": {
+      "khaman":    {"calories": 160, "protein": 6, "fat": 5, "carbs": 25, "fiber": 2},
+      "rava":      {"calories": 145, "protein": 4, "fat": 4, "carbs": 26, "fiber": 1.5},
+      "steamed":   {"calories": 130, "protein": 6, "fat": 3, "carbs": 22, "fiber": 2}
+    }
+  },
+  "kheer": {
+    "base": {"calories": 190, "protein": 4.5, "fat": 6, "carbs": 32, "fiber": 0.2},
+    "variants": {
+      "rice":     {"calories": 190, "protein": 4.5, "fat": 6, "carbs": 32, "fiber": 0.2},
+      "vermicelli":{"calories": 200,"protein": 4,   "fat": 6, "carbs": 35, "fiber": 0.3},
+      "sabudana": {"calories": 220, "protein": 2.5, "fat": 6, "carbs": 40, "fiber": 0.5}
+    }
+  },
+  "gajar_halwa": {
+    "base": {"calories": 280, "protein": 4, "fat": 12, "carbs": 42, "fiber": 2.5}
+  },
+  "jalebi": {
+    "base": {"calories": 150, "protein": 1.5, "fat": 5, "carbs": 28, "fiber": 0.3}
+  },
+  "ladoo": {
+    "base": {"calories": 220, "protein": 3.5, "fat": 10, "carbs": 32, "fiber": 1},
+    "variants": {
+      "besan":    {"calories": 220, "protein": 4, "fat": 10, "carbs": 32, "fiber": 1.5},
+      "rava":     {"calories": 200, "protein": 3, "fat": 9,  "carbs": 31, "fiber": 0.8},
+      "coconut":  {"calories": 240, "protein": 2, "fat": 13, "carbs": 31, "fiber": 2},
+      "motichoor":{"calories": 210, "protein": 3, "fat": 8,  "carbs": 33, "fiber": 0.8}
+    }
+  },
+  "barfi": {
+    "base": {"calories": 250, "protein": 5, "fat": 12, "carbs": 34, "fiber": 0.5},
+    "variants": {
+      "milk":     {"calories": 250, "protein": 5.5, "fat": 12, "carbs": 34, "fiber": 0.5},
+      "coconut":  {"calories": 265, "protein": 3,   "fat": 14, "carbs": 35, "fiber": 2},
+      "kaju":     {"calories": 290, "protein": 6,   "fat": 15, "carbs": 34, "fiber": 1}
+    }
+  },
+  "rasgulla": {
+    "base": {"calories": 110, "protein": 3, "fat": 1.5, "carbs": 24, "fiber": 0}
+  },
+  "naan": {
+    "base": {"calories": 262, "protein": 8, "fat": 5, "carbs": 48, "fiber": 2},
+    "variants": {
+      "plain":    {"calories": 262, "protein": 8, "fat": 5,  "carbs": 48, "fiber": 2},
+      "butter":   {"calories": 310, "protein": 8, "fat": 10, "carbs": 48, "fiber": 2},
+      "garlic":   {"calories": 295, "protein": 8, "fat": 8,  "carbs": 49, "fiber": 2},
+      "paneer":   {"calories": 340, "protein": 11,"fat": 11, "carbs": 49, "fiber": 2}
+    }
+  },
+  "puri": {
+    "base": {"calories": 135, "protein": 2.5, "fat": 6.5, "carbs": 18, "fiber": 1.2}
+  },
+  "bhatura": {
+    "base": {"calories": 290, "protein": 6, "fat": 12, "carbs": 40, "fiber": 1.5}
+  },
+  "baingan_bharta": {
+    "base": {"calories": 130, "protein": 3, "fat": 7, "carbs": 15, "fiber": 4}
+  },
+  "egg_curry": {
+    "base": {"calories": 200, "protein": 12, "fat": 13, "carbs": 8, "fiber": 1.5}
+  },
+  "fish_curry": {
+    "base": {"calories": 210, "protein": 22, "fat": 10, "carbs": 7, "fiber": 1}
+  },
+  "chicken_curry": {
+    "base": {"calories": 240, "protein": 22, "fat": 14, "carbs": 8, "fiber": 1.5}
+  },
+  "paneer": {
+    "base": {"calories": 265, "protein": 18, "fat": 20, "carbs": 3.5, "fiber": 0}
+  },
+  "kadhi": {
+    "base": {"calories": 155, "protein": 5, "fat": 8, "carbs": 18, "fiber": 0.5}
+  },
+  "pakora": {
+    "base": {"calories": 165, "protein": 4, "fat": 9, "carbs": 18, "fiber": 2},
+    "variants": {
+      "onion":    {"calories": 155, "protein": 3.5, "fat": 8, "carbs": 18, "fiber": 2},
+      "paneer":   {"calories": 200, "protein": 7,   "fat": 12,"carbs": 17, "fiber": 1.5},
+      "vegetable":{"calories": 155, "protein": 4,   "fat": 8, "carbs": 18, "fiber": 3}
+    }
+  },
+  "lassi": {
+    "base": {"calories": 160, "protein": 5, "fat": 6, "carbs": 22, "fiber": 0},
+    "variants": {
+      "sweet":  {"calories": 175, "protein": 5, "fat": 6, "carbs": 26, "fiber": 0},
+      "salted": {"calories": 120, "protein": 5, "fat": 5, "carbs": 12, "fiber": 0},
+      "mango":  {"calories": 200, "protein": 4, "fat": 5, "carbs": 34, "fiber": 0.5}
+    }
+  },
+  "chai": {
+    "base": {"calories": 55, "protein": 1.5, "fat": 2, "carbs": 8, "fiber": 0},
+    "variants": {
+      "with_sugar": {"calories": 65, "protein": 1.5, "fat": 2, "carbs": 11, "fiber": 0},
+      "sugarless":  {"calories": 30, "protein": 1.5, "fat": 2, "carbs": 3,  "fiber": 0},
+      "masala":     {"calories": 60, "protein": 1.5, "fat": 2, "carbs": 9,  "fiber": 0.2}
+    }
+  },
+  "sambhar": {
+    "base": {"calories": 100, "protein": 5, "fat": 3, "carbs": 15, "fiber": 4.5}
+  },
+  "coconut_chutney": {
+    "base": {"calories": 85, "protein": 1.5, "fat": 7, "carbs": 5, "fiber": 2.5}
+  },
+  "pesarattu": {
+    "base": {"calories": 160, "protein": 8, "fat": 4, "carbs": 24, "fiber": 4}
+  },
+  "appam": {
+    "base": {"calories": 115, "protein": 2.5, "fat": 2, "carbs": 23, "fiber": 0.5}
+  },
+  "halwa": {
+    "base": {"calories": 300, "protein": 4, "fat": 14, "carbs": 43, "fiber": 1},
+    "variants": {
+      "gajar":    {"calories": 280, "protein": 4, "fat": 12, "carbs": 42, "fiber": 2.5},
+      "sooji":    {"calories": 320, "protein": 4, "fat": 15, "carbs": 46, "fiber": 0.8},
+      "moong_dal":{"calories": 310, "protein": 8, "fat": 13, "carbs": 44, "fiber": 2}
+    }
+  },
+  "sabudana_khichdi": {
+    "base": {"calories": 350, "protein": 5, "fat": 12, "carbs": 58, "fiber": 0.5}
+  },
+  "aloo_sabzi": {
+    "base": {"calories": 145, "protein": 2.5, "fat": 6, "carbs": 22, "fiber": 2.5}
+  }
+}

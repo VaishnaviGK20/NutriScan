@@ -1,0 +1,34 @@
+{% extends "auth_base.html" %}
+{% block title %}Forgot Password — NutriScan India{% endblock %}
+
+{% block card %}
+<h2 class="card-title">Forgot Password</h2>
+<p class="card-sub">Enter your email and we will send a reset code</p>
+
+{% if error %}
+<div class="alert alert-err">{{ error }}</div>
+{% endif %}
+
+<form method="POST" action="{{ url_for('forgot') }}">
+
+  <div class="field">
+    <label class="field-label">Email Address</label>
+    <div class="inp-wrap">
+      <span class="inp-icon">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </span>
+      <input class="field-inp" type="email" name="email"
+             placeholder="yourname@gmail.com"
+             inputmode="email" autocomplete="email"
+             value="{{ request.form.get('email','') }}"
+             required autofocus>
+    </div>
+  </div>
+
+  <button class="btn-primary" type="submit">Send Reset Code</button>
+</form>
+
+<div class="card-footer">
+  <a href="{{ url_for('login') }}">Back to Sign In</a>
+</div>
+{% endblock %}

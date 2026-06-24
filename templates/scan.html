@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+{% block title %}Scan Food — NutriScan India{% endblock %}
+
+{% block content %}
+
+<div id="section-upload">
+
+  <div class="card">
+    <div class="card-title">Scan Your Food</div>
+
+    <!-- Hidden file inputs -->
+    <input type="file" id="foodImage" accept="image/jpeg,image/png,image/webp" style="display:none">
+    <input type="file" id="camInput"  accept="image/*" capture="environment" style="display:none">
+
+    <!-- Two-button picker -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+      <button type="button" onclick="document.getElementById('foodImage').click()"
+              style="display:flex;flex-direction:column;align-items:center;gap:8px;
+                     padding:20px 10px;border:2px solid var(--border);border-radius:14px;
+                     background:#fff;cursor:pointer;color:var(--text);font-size:13px;font-weight:600;
+                     transition:border-color .2s">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--muted)"
+             stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <polyline points="21 15 16 10 5 21"/>
+        </svg>
+        Upload Photo
+        <span style="font-size:11px;color:var(--muted);font-weight:400">Gallery or folder</span>
+      </button>
+
+      <button type="button" onclick="document.getElementById('camInput').click()"
+              style="display:flex;flex-direction:column;align-items:center;gap:8px;
+                     padding:20px 10px;border:2px solid var(--saffron);border-radius:14px;
+                     background:var(--saffron-pale);cursor:pointer;color:var(--saffron);
+                     font-size:13px;font-weight:600;transition:all .2s">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--saffron)"
+             stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+          <circle cx="12" cy="13" r="4"/>
+        </svg>
+        Use Camera
+        <span style="font-size:11px;color:var(--muted);font-weight:400">Take photo now</span>
+      </button>
+    </div>
+
+    <!-- Drag and drop zone -->
+    <div class="upload-zone" id="uploadZone">
+      <div class="upload-zone-icon">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+      </div>
+      <div class="upload-zone-title">Drag and drop an image here</div>
+      <div class="upload-zone-sub">JPG · PNG · WEBP · Max 12 MB</div>
+    </div>
+
+    <img id="imgPreview" class="preview-img" src="" alt="Preview" style="display:none;margin-top:12px">
+
+    <div class="scan-actions" style="margin-top:12px">
+      <button class="btn btn-primary" id="scanBtn" disabled>Scan Food</button>
+      <button class="btn btn-secondary btn-icon" id="retryBtn" title="Change image"
+              style="flex-shrink:0;font-size:13px">Retry</button>
+    </div>
+
+    <div class="input-group" style="margin-top:14px;margin-bottom:0">
+      <label class="input-label" for="description">Description (optional — improves accuracy)</label>
+      <input class="input-field" type="text" id="description"
+             placeholder="e.g. butter dosa from restaurant, no oil poha"
+             autocomplete="off">
+    </div>
+  </div>
+
+  <!-- Manual food search -->
+  <div class="card">
+    <div class="section-header">
+      <span class="card-title" style="margin-bottom:0">Add Food Manually</span>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:12px">
+      Search from 60+ Indian dishes and add directly to your log.
+    </p>
+
+    <div style="display:flex;gap:8px;margin-bottom:10px">
+      <select class="input-field" id="mealSelectSearch" style="width:auto;flex:1">
+        <option value="breakfast">Breakfast</option>
+        <option value="lunch">Lunch</option>
+        <option value="dinner">Dinner</option>
+        <option value="snack" selected>Snack</option>
+      </select>
+      <input class="input-field" type="number" id="qtySearch"
+             value="1" min="0.1" max="20" step="0.5"
+             style="width:72px" title="Quantity (servings)">
+    </div>
+
+    <div class="search-wrap">
+      <input class="input-field" type="search" id="foodSearch"
+             placeholder="Search food name — e.g. biryani, roti, lassi"
+             autocomplete="off" autocorrect="off">
+      <div class="search-results" id="searchResults" style="display:none"></div>
+    </div>
+  </div>
+
+</div><!-- /section-upload -->
+
+
+<!-- LOADING -->
+<div id="section-loading" style="display:none">
+  <div class="card">
+    <div class="spinner-wrap">
+      <div class="spinner"></div>
+      <div class="spinner-text">Analysing your food...</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- RESULTS -->
+<div id="section-results" style="display:none">
+
+  <div class="card">
+    <div class="section-header">
+      <span class="card-title" style="margin-bottom:0">Detection Result</span>
+      <button class="btn btn-sm btn-secondary"
+              style="width:auto;min-height:34px;padding:6px 14px;font-size:12px"
+              onclick="document.getElementById('retryBtn').click()">
+        New Scan
+      </button>
+    </div>
+    <img id="resultImg" class="preview-img" src="" alt="Detected food">
+    <div class="chips" id="detectedChips"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Nutrition (per scan)</div>
+    <div class="nutrition-full">
+      <div class="nut-card cal">
+        <span class="nut-val" id="nutCal">0 kcal</span>
+        <div class="nut-label">Calories</div>
+      </div>
+      <div class="nut-card prot">
+        <span class="nut-val" id="nutProt">0g</span>
+        <div class="nut-label">Protein</div>
+      </div>
+      <div class="nut-card fat">
+        <span class="nut-val" id="nutFat">0g</span>
+        <div class="nut-label">Fat</div>
+      </div>
+      <div class="nut-card carb">
+        <span class="nut-val" id="nutCarb">0g</span>
+        <div class="nut-label">Carbs</div>
+      </div>
+      <div class="nut-card fib">
+        <span class="nut-val" id="nutFib">0g</span>
+        <div class="nut-label">Fiber</div>
+      </div>
+    </div>
+
+    <div style="margin-top:14px">
+      <button class="expl-toggle" id="explToggle">
+        <span>Why these values?</span>
+        <span class="expl-arrow">+</span>
+      </button>
+      <div class="expl-block" id="explContent"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Add to Today's Log</div>
+    <input type="hidden" id="foodNameForLog" value="Scanned food">
+
+    <div style="display:flex;gap:8px;margin-bottom:12px">
+      <select class="input-field" id="mealSelect" style="flex:1;width:auto">
+        <option value="breakfast">Breakfast</option>
+        <option value="lunch">Lunch</option>
+        <option value="dinner">Dinner</option>
+        <option value="snack" selected>Snack</option>
+      </select>
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <label class="input-label" style="margin:0">Qty</label>
+        <input class="input-field" type="number" id="qtyInput"
+               value="1" min="0.1" max="20" step="0.5" style="width:70px">
+      </div>
+    </div>
+
+    <button class="btn btn-primary" id="addToLogBtn">Add to Log</button>
+  </div>
+
+</div><!-- /section-results -->
+
+{% endblock %}
