@@ -444,18 +444,13 @@ def api_scan():
             if det is None:
                 return jsonify({'error': 'Detection model not available.'}), 503
 
-            result_img, items, nutrition, explanations = det.detect_and_calculate(
+            img_b64, items, nutrition, explanations = det.detect_and_calculate(
                 tmp_path, description
             )
 
-            result_pil = Image.fromarray(result_img)
-            buf = io.BytesIO()
-            result_pil.save(buf, format='JPEG', quality=80)
-            img_b64 = base64.b64encode(buf.getvalue()).decode()
-
             return jsonify({
                 'success': True,
-                'image_b64': img_b64,
+                'image_b64': img_b64 or '',
                 'detected_items': items,
                 'total_nutrition': {k: round(v, 1) for k, v in nutrition.items()},
                 'explanations': explanations,
