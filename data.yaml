@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 7
+names: ['besan_cheela', 'dosa', 'gulab_jamun', 'idli', 'palak_paneer', 'poha', 'samosa']
+
+roboflow:
+  workspace: indianfood
+  project: indian_food-pwzlc
+  version: 2
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/indianfood/indian_food-pwzlc/dataset/2
