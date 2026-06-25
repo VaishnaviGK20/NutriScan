@@ -57,17 +57,6 @@ def _login_required(f):
 
 def _send_otp_email(to_email: str, code: str,
                     subject: str = 'Your NutriScan OTP') -> bool:
-    gmail_user = os.environ.get('GMAIL_EMAIL', '').strip()
-    gmail_pass = os.environ.get('GMAIL_APP_PASSWORD', '').strip()
-
-    if not gmail_user or not gmail_pass:
-        return False
-
-    msg = MIMEMultipart('alternative')
-    msg['Subject'] = f'{subject} — {code}'
-    msg['From'] = f'NutriScan India <{gmail_user}>'
-    msg['To'] = to_email
-
     html = f"""<!DOCTYPE html>
 <html>
 <body style="margin:0;padding:20px;background:#FFF9F5;
@@ -76,7 +65,6 @@ def _send_otp_email(to_email: str, code: str,
               border-radius:20px;padding:36px 28px;
               box-shadow:0 4px 24px rgba(255,107,53,.15);">
     <div style="text-align:center;margin-bottom:28px;">
-      <div style="font-size:52px;">&#127869;</div>
       <h2 style="color:#FF6B35;margin:10px 0 4px;font-size:26px;">
         NutriScan India
       </h2>
@@ -85,7 +73,7 @@ def _send_otp_email(to_email: str, code: str,
       </p>
     </div>
     <p style="color:#1C1C1C;font-size:16px;margin-bottom:6px;">
-      Your one-time login code:
+      Your one-time verification code:
     </p>
     <div style="background:#FFF3EE;border:2.5px solid #FF6B35;
                 border-radius:14px;padding:22px;text-align:center;
@@ -106,6 +94,34 @@ def _send_otp_email(to_email: str, code: str,
 </body>
 </html>"""
 
+    # Try Resend API first — works on Render/Vercel (SMTP is blocked on free tiers)
+    resend_key = os.environ.get('RESEND_API_KEY', '').strip()
+    if resend_key:
+        try:
+            import resend
+            resend.api_key = resend_key
+            resend.Emails.send({
+                "from": "NutriScan <onboarding@resend.dev>",
+                "to": [to_email],
+                "subject": f"{subject} — {code}",
+                "html": html,
+            })
+            return True
+        except Exception as e:
+            print(f"[Resend error] {e}")
+            return False
+
+    # Fallback: Gmail SMTP (local development only)
+    gmail_user = os.environ.get('GMAIL_EMAIL', '').strip()
+    gmail_pass = os.environ.get('GMAIL_APP_PASSWORD', '').strip()
+    if not gmail_user or not gmail_pass:
+        print("[Email error] No email credentials configured")
+        return False
+
+    msg = MIMEMultipart('alternative')
+    msg['Subject'] = f'{subject} — {code}'
+    msg['From'] = f'NutriScan India <{gmail_user}>'
+    msg['To'] = to_email
     try:
         msg.attach(MIMEText(html, 'html'))
         with smtplib.SMTP_SSL('smtp.gmail.com', 465, timeout=15) as srv:
